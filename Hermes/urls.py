@@ -19,6 +19,7 @@ from api.resources import CouncilmanDebitsResource
 
 councilmanDebits_resource = CouncilmanDebitsResource()
 urlpatterns = [
+    url(r'^', include('website.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(councilmanDebits_resource.urls)),
 ]

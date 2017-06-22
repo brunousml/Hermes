@@ -1,6 +1,57 @@
 /**
  * Created by bruno on 22/06/17.
  */
+google.charts.load('current', { packages: ['corechart', 'bar', 'table', 'treemap'] });
+// {#        google.charts.load('current', {'packages':['bar']});#}
+
+google.charts.setOnLoadCallback(drawStuff);
+// google.charts.setOnLoadCallback(drawAnnotations);
+google.charts.setOnLoadCallback(drawTable);
+google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawBasic);
+
+function getCouncilmansDebits() {
+    var data = null;
+    $.getJSON('api/v1/councilmanDebits/?format=json', function (result) {
+
+        data = result['objects']
+        console.log(data);
+    });
+}
+
+
+function drawStuff() {
+    var data = getCouncilmansDebits();
+
+    // var data = new google.visualization.arrayToDataTable([
+    //   ['Move', 'Percentage'],
+    //   ["King's pawn (e4)", 44],
+    //   ["Queen's pawn (d4)", 31],
+    //   ["Knight to King 3 (Nf3)", 12],
+    //   ["Queen's bishop pawn (c4)", 10],
+    //   ['Other', 3]
+    // ]);
+
+    var options = {
+      width: '100%',
+      legend: { position: 'none' },
+      chart: {
+        title: 'Débitos de Vereadores',
+        subtitle: 'Munícipio de São Paulo' },
+      axes: {
+        x: {
+          0: { side: 'top', label: 'White to move'} // Top x-axis.
+        }
+      },
+      bar: { groupWidth: "90%" }
+};
+
+    var chart = new google.charts.Bar(document.getElementById('councilman_vertical_chart_most_cost'));
+    // Convert the Classic options to Material options.
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+};
+
+
 function drawAnnotations() {
     var data = new google.visualization.DataTable();
     data.addColumn('timeofday', 'Time of Day');
