@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Extrato Publico</title>
+
+    {#    Metatags  #}
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    {% load staticfiles %}
+
+    {#    Stylesheets   #}
+    <link rel="stylesheet" href="{% static "website/css/bootstrap.css" %}"  />
+    <link rel="stylesheet" href="{% static "website/css/style.css" %}">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" type="text/css">
+
+    {#    Charts    #}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{% static "website/js/google-charts/charts.google.js" %}"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', { packages: ['corechart', 'bar', 'table', 'treemap'] });
+
+        google.charts.setOnLoadCallback(drawAnnotations);
+        google.charts.setOnLoadCallback(drawTable);
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawBasic);
+    </script>
+</head>
+<body>
+
+    <body class="pace-done">
+        <div class="pace  pace-inactive">
+            <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+                <div class="pace-progress-inner"></div>
+            </div>
+            <div class="pace-activity"></div>
+        </div>
+
+        <!-- Wrapper-->
+        <div class="wrapper">
+
+            <!-- Header-->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div id="mobile-menu">
+                            <div class="left-nav-toggle">
+                                <a href="#">
+                                    <i class="stroke-hamburgermenu"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <a class="navbar-brand" href="index.html">
+                            LOGO IMG
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <div class="left-nav-toggle">
+                            <a href="">
+                                <i class="stroke-hamburgermenu">Esconder Menu</i>
+                            </a>
+                        </div>
+                     </div>
+                </div>
+            </nav>
+            <!-- End header-->
+            <!-- Navigation-->
+            <aside class="navigation">
+                <nav>
+                    <ul class="nav luna-nav">
+                        <li class="nav-category">
+                            Menu
+                        </li>
+                        <li class="active">
+                            <a href="index.html">Painel de Gastos</a>
+                        </li>
+
+                       
+                        <li>
+                            <a href="#">
+                                Conheça o Projeto
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="versions.html">
+                                Entre em contato Conosco
+                            </a>
+                        </li>
+                        <li class="nav-info">
+                            <i class="pe pe-7s-shield text-accent"></i>
+
+                            <div class="m-t-xs">
+                                <span class="c-white">Extrato Público</span> é uma interface de demonstração dos gastos públicos.
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <!-- End navigation-->
+            <!-- Main content-->
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="view-header">
+                                <div class="pull-right text-right" style="line-height: 14px">
+                                    <small>Dados Públicos<br>Use Nossa<br> <span class="c-white"><a href="#">API</a></span></small>
+                                </div>
+                                <div class="header-icon">
+                                    <i class="pe page-header-icon pe-7s-shield"></i>
+                                </div>
+                                <div class="header-title">
+                                    <h3 class="m-b-xs">Extrato Público</h3>
+                                    <small>
+                                        Analise, investigue, confira os gastos de seu representante politíco.
+                                    </small>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="panel panel-filled">
+
+                                <div class="panel-body">
+                                    <h2 class="m-b-none">
+                                        R$ 15.512.065,80
+                                    </h2>
+                                    <div class="small">Valor Total dos 55 Gabinetes</div>
+                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span>  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="panel panel-filled">
+
+                                <div class="panel-body">
+                                    <h2 class="m-b-none">
+                                        R$ 282.037,56
+                                    </h2>
+                                    <div class="small">Valor Individual por Vereador</div>
+                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span>  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h2 class="m-b-none">
+                                        R$ 23.503,13
+                                    </h2>
+                                    <div class="small">Media Mensal Individual</div>
+                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span> </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-xs-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h2 class="m-b-none" style="text-align:center;">
+                                        Como cada Vereador pode gastar esse dinheiro ?
+                                    </h2><br />
+                                    <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>
+
+                                    <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="panel panel-filled">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="panel-body">
+                                            <div class="text-center slight">
+                                            </div>
+                                            <div id="chart_div"></div>
+                                            <div class="small text-center">All active users from last month.</div>
+                                            <div class="panel-body">
+                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>
+                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="panel panel-filled">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div id="chart_hot" style="width: 40%; height: 500px; float:left;">                                             
+                                            </div>
+                                               <div id="chart_cnpj" style="width: 40%; height: 500px; float:left; text-align:right;">                                                                                                 
+                                                </div>
+                                            <div class="panel-body" style="width: 40%;float:left">
+                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>
+                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>
+                                            </div>
+                                            <div class="panel-body" style="width: 40%;float:left">
+                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>
+                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div id="table_div"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+
+                    </div>
+                </div>
+                </div>
+            </section>
+            <!-- End main content-->
+
+        </div>
+        <!-- End wrapper-->
+    
+
+</body>
+</html>
