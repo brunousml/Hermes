@@ -18,8 +18,8 @@ function getCouncilmansDebits() {
             var councilman_name = val.councilman.name
             if(total_debits[councilman_name] == undefined) total_debits[councilman_name] = 0;
             total_debits[councilman_name] =  total_debits[councilman_name] + val.value;
-            drawDashboard(total_debits);
         });
+        drawDashboard(total_debits);
     });
 
     // drawChart(data);
@@ -41,10 +41,10 @@ function drawDashboard(total_debits) {
     var rangeSlider = new google.visualization.ControlWrapper({
           'controlType': 'NumberRangeFilter',
           'containerId': 'filter_div',
+          'lowValue' : 0,
+          'maxValue': 10000000,
           'options': {
-              'filterColumnLabel': 'Reembolso',
-              'minValue': '0',
-              'maxValue': '100000000'
+              'filterColumnLabel': 'Reembolso'
           }
         });
 
@@ -68,7 +68,7 @@ function drawDashboard(total_debits) {
       }
     });
 
-    dashboard.bind([rangeSlider,stringFilter],  histogram);
+    dashboard.bind(rangeSlider,  histogram).bind(stringFilter, histogram);
 
     // Draw the dashboard.
     dashboard.draw(data);
