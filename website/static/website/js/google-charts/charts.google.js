@@ -1,6 +1,3 @@
-/**
- * Created by bruno on 22/06/17.
- */
 // google.charts.load('current', { packages: ['corechart', 'bar', 'table', 'treemap'] });
 // // {#        google.charts.load('current', {'packages':['bar']});#}
 //
@@ -11,47 +8,77 @@
 // google.charts.setOnLoadCallback(drawBasic);
 
 
-google.charts.load("current", {packages:["corechart", 'bar']});
+google.charts.load('current', {packages:['corechart', 'bar', 'controls']});
 google.charts.setOnLoadCallback(getCouncilmansDebits);
 
 function getCouncilmansDebits() {
-    var data = {};
+    var total_debits = {};
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
         $.each(result['objects'], function (key, val) {
             var councilman_name = val.councilman.name
-            if(data[councilman_name] == undefined) data[councilman_name] = 0;
-            data[councilman_name] =  data[councilman_name] + val.value;
+            if(total_debits[councilman_name] == undefined) total_debits[councilman_name] = 0;
+            total_debits[councilman_name] =  total_debits[councilman_name] + val.value;
+            drawDashboard(total_debits);
         });
-        drawChart(data);
-        drawStuff(data);
     });
+
+    // drawChart(data);
+    // drawStuff(data);
 }
 
-function drawChart(array_data) {
+function drawDashboard(total_debits) {
     var data = new google.visualization.DataTable();
     data.addColumn("string", "Nome");
-    data.addColumn("number", "Débitos");
+    data.addColumn("number", "Reembolso");
 
-    $.each(array_data, function (key, val) {
+    $.each(total_debits, function (key, val) {
         data.addRow([key, val]);
     });
     data.sort({column: 1, desc: true});
 
+    var dashboard = new google.visualization.Dashboard(document.getElementById('chart_dashboard'));
+
+    var rangeSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'filter_div',
+          'options': {
+              'filterColumnLabel': 'Reembolso',
+              'minValue': '0',
+              'maxValue': '100000000'
+          }
+        });
+
+    var stringFilter = new google.visualization.ControlWrapper({
+      'controlType': 'StringFilter',
+      'containerId': 'string_filter_div',
+      'options': {
+          'filterColumnLabel': 'Nome',
+          'matchType': 'any'
+      }
+    });
+
+    // Create a pie chart, passing some options
+    var histogram = new google.visualization.ChartWrapper({
+      'chartType': 'Histogram',
+      'containerId': 'councilman_vertical_chart_most_cost',
+      'options': {
+        'title': 'Débitos de Vereadores do Munícipio de São Paulo',
+        'colors': ['#f6a821'],
+        'vAxis': { 'scaleType': 'mirrorLog' },
+      }
+    });
+
+    dashboard.bind([rangeSlider,stringFilter],  histogram);
+
+    // Draw the dashboard.
+    dashboard.draw(data);
+}
+
+function drawChart(data) {
     var options = {
         title: 'Débitos de Vereadores do Munícipio de São Paulo',
         colors: ['#f6a821'],
         vAxis: { scaleType: 'mirrorLog' },
-        // backgroundColor: '#2d3038',
-        // animation: {
-        //     easing: 'linear',
-        //     startup: true,
-        // },
-        // titleTextStyle: {
-        //     color: 'white',
-        // },
-        // legend: { color: 'white', textStyle: {color: 'white'}},
-        // isStacked: true,
-        // width: 900
       };
     var chart = new google.visualization.Histogram(document.getElementById('councilman_vertical_chart_most_cost_2'));
     chart.draw(data, options);
@@ -59,33 +86,10 @@ function drawChart(array_data) {
 
 
 
-function drawStuff(array_data) {
-    var data = new google.visualization.DataTable();
-    data.addColumn("string", "Nome");
-    data.addColumn("number", "Débitos");
-
-    $.each(array_data, function (key, val) {
-        // debits.push([key, val])
-        data.addRow([key, val]);
-    });
-    data.sort({column: 1, desc: true});
-
+function drawStuff(data) {
     var options = {
         title: 'Débitos de Vereadores do Munícipio de São Paulo',
         colors: ['#f6a821'],
-        // vAxis: { scaleType: 'mirrorLog' },
-        // backgroundColor: '#2d3038',
-        // animation: {
-        //     easing: 'linear',
-        //     startup: true,
-        // },
-        // titleTextStyle: {
-        //     color: 'white',
-        // },
-        // titlePosition: 'out',
-        // legend: { color: 'white', textStyle: {color: 'white'}},
-        // isStacked: true,
-        // width: 900
       };
 
     var chart = new google.charts.Bar(document.getElementById('councilman_vertical_chart_most_cost'));
