@@ -15,8 +15,46 @@ function drawCharts() {
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
         drawDashboard(sumDebitsByCouncilman(result['objects']));
         drawScatterChart(sumDebitsByCostObject(result['objects']));
+        drawBasic(sumDebitsByCNPJ(result['objects']));
     });
 }
+function sumDebitsByCNPJ(objects) {
+    var total_debits = {};
+    $.each(objects, function (key, val) {
+        var CNPJ = val.cnpj;
+        if(total_debits[CNPJ] == undefined) total_debits[CNPJ] = 0;
+        total_debits[CNPJ] =  total_debits[CNPJ] + val.value;
+    });
+
+    return total_debits
+}
+
+function drawBasic(total_debits) {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn("string", "CNPJ");
+    data.addColumn("number", "Reembolso");
+
+    $.each(total_debits, function (object, value) {
+        data.addRow([ object, value]);
+    })
+
+      var options = {
+        title: 'Relação de Pagamentos para CNPJ',
+        // chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Total em Reais',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'CNPJ'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_cnpj'));
+
+      chart.draw(data, options);
+    }
 
 
 function drawScatterChart(total_debits) {
@@ -48,6 +86,8 @@ function drawScatterChart(total_debits) {
         chart.draw(data, google.charts.Scatter.convertOptions(options));
 
 }
+
+
 
 function sumDebitsByCostObject(objects) {
     var total_debits = {};
@@ -120,35 +160,3 @@ function drawDashboard(total_debits) {
     // Draw the dashboard.
     dashboard.draw(data);
 }
-
-
-
-
-
-// function drawBasic() {
-//
-//     var data = google.visualization.arrayToDataTable([
-//       ['CNPJ', 'Mais Apontados', ],
-//       ['CNPJ1', 8175000],
-//       ['CNPJ2', 3792000],
-//       ['CNPJ3', 2695000],
-//       ['CNPJ4', 2099000],
-//       ['CNPJ5', 1526000]
-//     ]);
-//
-//     var options = {
-//         title: 'CNPJs que mais geraram notas',
-//         chartArea: { width: '50%' },
-//         hAxis: {
-//             title: 'Somatória em Reais',
-//             minValue: 0
-//         },
-//         vAxis: {
-//             title: ''
-//         }
-//     };
-//
-//     var chart = new google.visualization.BarChart(document.getElementById('chart_cnpj'));
-//
-//     chart.draw(data, options);
-// }
