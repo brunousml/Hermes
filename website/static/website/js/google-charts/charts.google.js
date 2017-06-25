@@ -41,19 +41,16 @@ function drawBasic(total_debits) {
 
       var options = {
         title: 'Relação de Pagamentos para CNPJ',
-        // chartArea: {width: '50%'},
-        hAxis: {
-          title: 'Total em Reais',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'CNPJ'
-        }
+        is3D: true,
       };
 
-      var chart = new google.visualization.BarChart(document.getElementById('chart_cnpj'));
+      // var chart = new google.visualization.BarChart(document.getElementById('chart_cnpj'));
+      //
+      // chart.draw(data, options);
 
-      chart.draw(data, options);
+    var chart = new google.visualization.PieChart(document.getElementById('chart_cnpj'));
+
+        chart.draw(data, options);
     }
 
 
