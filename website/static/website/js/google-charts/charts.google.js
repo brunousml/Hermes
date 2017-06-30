@@ -7,9 +7,9 @@ google.charts.setOnLoadCallback(drawCharts);
 // Get JSON Data and Create Charts
 function drawCharts() {
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
-        // createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
-        // createTreeMapChart(sumDebitsByCostObject(result['objects']));
-        // createBarChart(sumDebitsByCouncilman(result['objects']));
+        createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
+        createTreeMapChart(sumDebitsByCostObject(result['objects']));
+        createBarChart(sumDebitsByCouncilman(result['objects']));
         createDataTable(result['objects']);
     });
 }
