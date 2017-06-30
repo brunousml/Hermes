@@ -7,11 +7,35 @@ google.charts.setOnLoadCallback(drawCharts);
 // Get JSON Data and Create Charts
 function drawCharts() {
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
-        createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
-        createTreeMapChart(sumDebitsByCostObject(result['objects']));
-        createBarChart(sumDebitsByCouncilman(result['objects']));
-
+        // createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
+        // createTreeMapChart(sumDebitsByCostObject(result['objects']));
+        // createBarChart(sumDebitsByCouncilman(result['objects']));
+        createDataTable(result['objects']);
     });
+}
+
+function createDataTable(objects) {
+    var table = $('#datatable');
+
+    $.each(objects, function (k, v) {
+        table.append(addRow(v));
+    });
+
+    table.DataTable();
+}
+
+function addRow(debit) {
+    return '<tr> '+
+                '<td>' + debit.councilman.name + '</td>' +
+                '<td>' + debit.department + '</td>' +
+                '<td>' + debit.cost_object + '</td>' +
+                '<td>' + debit.cost_center_code + '</td>' +
+                '<td>' + debit.provider + '</td>' +
+                '<td>' + debit.cnpj + '</td>' +
+                '<td>' + debit.year + '</td>' +
+                '<td>' + debit.month + '</td>' +
+                '<td>' + debit.value + '</td>' +
+            '</tr>';
 }
 
 function createHorizontalBarChart(debits) {

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static "website/css/bootstrap.css" %}"  />
     <link rel="stylesheet" href="{% static "website/css/style.css" %}">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" type="text/css">
 
     {#    Javascript    #}
     <script type="text/javascript" src="{% static "website/js/jquery/jquery-1.9.1.min.js" %}"></script>
@@ -22,6 +23,7 @@
     {#    Google-charts#}
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="{% static "website/js/google-charts/charts.google.js" %}"></script>
 
     {#chart.js#}
@@ -52,8 +54,8 @@
                                 </a>
                             </div>
                         </div>
-                        <a class="navbar-brand" href="base.html">
-                            Extrato Público
+                        <a class="navbar-brand" href="index.html">
+                            LOGO IMG
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
@@ -74,7 +76,7 @@
                             Menu
                         </li>
                         <li class="active">
-                            <a href="base.html">Painel de Gastos</a>
+                            <a href="index.html">Painel de Gastos</a>
                         </li>
 
 
@@ -98,10 +100,11 @@
                         </li>
                     </ul>
                 </nav>
-            </aside><!-- End navigation-->
+            </aside>
+            <!-- End navigation-->
 
             <!-- Main content-->
-            <section class="content">{% block content %}{% endblock %}</section>
+            <section class="content" style="margin-left: 100px; padding: 0">{% block content %}{% endblock %}</section>
         </div><!-- End wrapper-->
     
 
