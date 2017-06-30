@@ -1,23 +1,146 @@
-// google.charts.load('current', { packages: ['corechart', 'bar', 'table', 'treemap'] });
-// // {#        google.charts.load('current', {'packages':['bar']});#}
-//
-// google.charts.setOnLoadCallback(getCouncilmansDebits);
-// // google.charts.setOnLoadCallback(drawAnnotations);
-// google.charts.setOnLoadCallback(drawTable);
-// google.charts.setOnLoadCallback(drawChart);
-// google.charts.setOnLoadCallback(drawBasic);
 
-var $colors = '#f6a821';
-google.charts.load('current', {packages:['corechart', 'bar', 'controls','scatter']});
+// Load Google Charts
+google.charts.load('current', {packages:['treemap']});
 google.charts.setOnLoadCallback(drawCharts);
 
+
+// Get JSON Data and Create Charts
 function drawCharts() {
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
-        drawDashboard(sumDebitsByCouncilman(result['objects']));
-        drawScatterChart(sumDebitsByCostObject(result['objects']));
-        drawBasic(sumDebitsByCNPJ(result['objects']));
+        createBarChart(sumDebitsByCouncilman(result['objects']));
+        createPolarChart(sumDebitsByCostObject(result['objects']));
     });
 }
+
+// Bar Chart using ChartJS
+function createBarChart(debits_by_councilman) {
+
+    var data = [];
+    var labels = [];
+    var backgroundcolor = [];
+    var bordercolor = [];
+    $.each(debits_by_councilman, function (key, val) {
+        data.push(val.toFixed(2));
+        labels.push(key);
+        backgroundcolor.push(get_rgb_randon())
+        bordercolor.push(get_rgb_randon_border())
+    });
+
+    var ctx = document.getElementById("barChart");
+    var stackedBar = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'R$ ',
+                data: data,
+                backgroundColor: backgroundcolor,
+                borderColor: bordercolor,
+                borderWidth: 1
+            }],
+        },
+        options:[]
+    });
+}
+
+// TreeMap Chart using GoogleCharts
+function createPolarChart(total_debits) {
+    var data = new google.visualization.DataTable();
+
+    data.addColumn("string", "Objecto de custo");
+    data.addColumn("string", "CNPJ");
+    data.addColumn("number", "Reembolso");
+    data.addRow([ 'Objecto de Custo', null, 0]);
+
+    var exist= {};
+    var test= [['Objecto de custo', 'CNPJ', 'rembolso'],[ 'Objecto de Custo', null, 0]];
+    $.each(total_debits, function (root, nodes)
+    {
+        data.addRow([ root, 'Objecto de Custo', 0]);
+        test.push([ root, 'Objecto de Custo', 0])
+        $.each(nodes, function (councilman, cnpjs)
+        {
+            if(!exist[councilman])
+            {
+                exist[councilman]=true;
+                data.addRow([councilman, root, 0]);
+                test.push([councilman, root, 0])
+
+            }
+
+            $.each(cnpjs, function (cnpj, value)
+            {
+                value = Math.round(value);
+
+                if(exist[cnpj])
+                {
+                    data.addRow([null, cnpj, value]);
+                    test.push([null, cnpj, value])
+
+
+                }
+                else
+                {
+                    exist[cnpj] =true
+                    data.addRow([cnpj, councilman, value]);
+                    test.push([cnpj, councilman, value])
+
+                }
+            });
+
+        });
+    });
+    data = google.visualization.arrayToDataTable(test);
+    tree = new google.visualization.TreeMap(document.getElementById('polarChart'));
+    var options = {
+        highlightOnMouseOver: true,
+        maxDepth: 1,
+        maxPostDepth: 2,
+        minHighlightColor: '#8c6bb1',
+        midHighlightColor: '#9ebcda',
+        maxHighlightColor: '#edf8fb',
+        minColor: '#009688',
+        midColor: '#f7f7f7',
+        maxColor: '#ee8100',
+        headerHeight: 15,
+        showScale: true,
+        height: 500,
+        useWeightedAverageForAggregation: true,
+        generateTooltip: showStaticTooltip
+      };
+
+    tree.draw(data, options);
+
+}
+
+function showStaticTooltip(row, value, size) {
+return '<div style="background:#fd9; padding:10px; border-style:solid"> R$ '+ value +'</div>';
+}
+function get_rgb_randon() {
+     var a = [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ];
+    return a[Math.floor(Math.random()*a.length)];
+}
+
+function get_rgb_randon_border() {
+    var a =  [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ];
+    return a[Math.floor(Math.random()*a.length)];
+}
+
+
 function sumDebitsByCNPJ(objects) {
     var total_debits = {};
     $.each(objects, function (key, val) {
@@ -29,69 +152,18 @@ function sumDebitsByCNPJ(objects) {
     return total_debits
 }
 
-function drawBasic(total_debits) {
-
-    var data = new google.visualization.DataTable();
-    data.addColumn("string", "CNPJ");
-    data.addColumn("number", "Reembolso");
-
-    $.each(total_debits, function (object, value) {
-        data.addRow([ object, value]);
-    })
-
-      var options = {
-        title: 'Relação de Pagamentos para CNPJ',
-        is3D: true,
-      };
-
-      // var chart = new google.visualization.BarChart(document.getElementById('chart_cnpj'));
-      //
-      // chart.draw(data, options);
-
-    var chart = new google.visualization.PieChart(document.getElementById('chart_cnpj'));
-
-        chart.draw(data, options);
-    }
-
-
-function drawScatterChart(total_debits) {
-    var data = new google.visualization.DataTable();
-    data.addColumn("string", "Objeto de custo");
-    data.addColumn("number", "Reembolso");
-
-    $.each(total_debits, function (object, value) {
-        data.addRow([ object, value]);
-    })
-
-    var options = {
-        title: 'Objetos de Custo',
-        legend: 'none',
-        // aggregationTarget: 'auto',
-        colors: [$colors],
-        fontSize: 2,
-        chart: {
-            title: 'Students\' Final Grades',
-            subtitle: 'based on hours studied'
-          },
-          hAxis: {title: 'Hours Studied'},
-          vAxis: {title: 'Grade'},
-        selectionMode: 'multiple',
-    };
-
-    var chart = new google.charts.Scatter(document.getElementById('tree_map'));
-
-        chart.draw(data, google.charts.Scatter.convertOptions(options));
-
-}
-
-
-
 function sumDebitsByCostObject(objects) {
     var total_debits = {};
     $.each(objects, function (key, val) {
         var cost_object = val.cost_object;
-        if(total_debits[cost_object] == undefined) total_debits[cost_object] = 0;
-        total_debits[cost_object] =  total_debits[cost_object] + val.value;
+        var cnpj = val.cnpj;
+        var councilman = val.councilman.name;
+
+        if(total_debits[cost_object] == undefined) total_debits[cost_object] = {};
+        if(total_debits[cost_object][councilman] == undefined) total_debits[cost_object][councilman] = {};
+        if(total_debits[cost_object][councilman][cnpj] == undefined) total_debits[cost_object][councilman][cnpj] = 0;
+
+        total_debits[cost_object][councilman][cnpj] =  total_debits[cost_object][councilman][cnpj] + val.value;
     });
 
     return total_debits
@@ -105,55 +177,10 @@ function sumDebitsByCouncilman(objects) {
         total_debits[councilman_name] =  total_debits[councilman_name] + val.value;
     });
 
+    $.each(objects, function (key, val) {
+        var councilman_name = val.councilman.name
+        total_debits[councilman_name] =  total_debits[councilman_name] + val.value;
+    });
+
     return total_debits
-}
-
-function drawDashboard(total_debits) {
-    var data = new google.visualization.DataTable();
-    data.addColumn("string", "Vereador");
-    data.addColumn("number", "Reembolso");
-
-    $.each(total_debits, function (key, val) {
-        data.addRow([key, val]);
-    });
-    data.sort({column: 1, desc: true});
-
-    var dashboard = new google.visualization.Dashboard(document.getElementById('chart_dashboard'));
-
-    var rangeSlider = new google.visualization.ControlWrapper({
-          'controlType': 'NumberRangeFilter',
-          'containerId': 'filter_div',
-          'lowValue' : 0,
-          'maxValue': 10000000,
-          'options': {
-              'filterColumnLabel': 'Reembolso'
-          }
-        });
-
-    var stringFilter = new google.visualization.ControlWrapper({
-      'controlType': 'StringFilter',
-      'containerId': 'string_filter_div',
-      'options': {
-          'filterColumnLabel': 'Vereador',
-          'matchType': 'any'
-      }
-    });
-
-    var histogram = new google.visualization.ChartWrapper({
-      'chartType': 'Histogram',
-      'containerId': 'councilman_vertical_chart_most_cost',
-      'options': {
-        'title': 'Débitos de Vereadores do Munícipio de São Paulo',
-        'colors': ['#f6a821'],
-        'vAxis': { 'scaleType': 'mirrorLog' },
-      }
-    });
-
-    dashboard
-        .bind(rangeSlider,  histogram)
-        .bind(stringFilter, histogram);
-
-
-    // Draw the dashboard.
-    dashboard.draw(data);
 }
