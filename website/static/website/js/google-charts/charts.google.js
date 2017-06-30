@@ -7,19 +7,19 @@ google.charts.setOnLoadCallback(drawCharts);
 // Get JSON Data and Create Charts
 function drawCharts() {
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
-        createBarChart(sumDebitsByCouncilman(result['objects']));
         createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
-        createPolarChart(sumDebitsByCostObject(result['objects']));
+        createTreeMapChart(sumDebitsByCostObject(result['objects']));
+        createBarChart(sumDebitsByCouncilman(result['objects']));
+
     });
 }
 
 function createHorizontalBarChart(debits) {
-
     var data = [];
     var labels = [];
     var backgroundcolor = [];
     var bordercolor = [];
-    var limit = 10;
+    var limit = 20;
 
     var count = 0;
     $.each(debits, function (key, val) {
@@ -45,17 +45,26 @@ function createHorizontalBarChart(debits) {
                 borderWidth: 1
             }],
         },
-        options:[]
+        options: {
+            scales: {
+                xAxes: [{
+                    stacked: true
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
     });
 }
 
 // Bar Chart using ChartJS
 function createBarChart(debits_by_councilman) {
-
     var data = [];
     var labels = [];
     var backgroundcolor = [];
     var bordercolor = [];
+
     $.each(debits_by_councilman, function (key, val) {
         data.push(val.toFixed(2));
         labels.push(key);
@@ -81,7 +90,7 @@ function createBarChart(debits_by_councilman) {
 }
 
 // TreeMap Chart using GoogleCharts
-function createPolarChart(total_debits) {
+function createTreeMapChart(total_debits) {
     var data = new google.visualization.DataTable();
 
     data.addColumn("string", "Objecto de custo");
@@ -130,11 +139,11 @@ function createPolarChart(total_debits) {
     tree.draw(data, options);
 
 }
-
 function showStaticTooltip(row, value, size) {
-return '<div style="background:#fd9; padding:10px; border-style:solid"> R$ '+ value +'</div>';
+    return '<div style="background:#fd9; padding:10px; border-style:solid"> R$ '+ value +'</div>';
 }
 
+/// Helpers
 function get_rgb_randon() {
      var a = [
                 'rgba(255, 99, 132, 0.2)',
@@ -158,7 +167,6 @@ function get_rgb_randon_border() {
             ];
     return a[Math.floor(Math.random()*a.length)];
 }
-
 
 function sumDebitsByCNPJ(objects) {
     var total_debits = {};
