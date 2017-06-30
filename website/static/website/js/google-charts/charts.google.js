@@ -8,7 +8,44 @@ google.charts.setOnLoadCallback(drawCharts);
 function drawCharts() {
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
         createBarChart(sumDebitsByCouncilman(result['objects']));
+        createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
         createPolarChart(sumDebitsByCostObject(result['objects']));
+    });
+}
+
+function createHorizontalBarChart(debits) {
+
+    var data = [];
+    var labels = [];
+    var backgroundcolor = [];
+    var bordercolor = [];
+    var limit = 10;
+
+    var count = 0;
+    $.each(debits, function (key, val) {
+        if (count <= limit){ // used to limit the cnpj per graph
+            data.push(val.toFixed(2));
+            labels.push(key);
+            backgroundcolor.push(get_rgb_randon())
+            bordercolor.push(get_rgb_randon_border())
+        }
+        count++;
+    });
+
+    var ctx = document.getElementById("horizontalBarChart");
+    var stackedBar = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'R$ ',
+                data: data,
+                backgroundColor: backgroundcolor,
+                borderColor: bordercolor,
+                borderWidth: 1
+            }],
+        },
+        options:[]
     });
 }
 
@@ -53,45 +90,26 @@ function createPolarChart(total_debits) {
     data.addRow([ 'Objecto de Custo', null, 0]);
 
     var exist= {};
-    var test= [['Objecto de custo', 'CNPJ', 'rembolso'],[ 'Objecto de Custo', null, 0]];
-    $.each(total_debits, function (root, nodes)
-    {
+    $.each(total_debits, function (root, nodes){
         data.addRow([ root, 'Objecto de Custo', 0]);
-        test.push([ root, 'Objecto de Custo', 0])
-        $.each(nodes, function (councilman, cnpjs)
-        {
-            if(!exist[councilman])
-            {
+        $.each(nodes, function (councilman, cnpjs){
+            if(!exist[councilman]){
                 exist[councilman]=true;
                 data.addRow([councilman, root, 0]);
-                test.push([councilman, root, 0])
-
             }
-
-            $.each(cnpjs, function (cnpj, value)
-            {
+            $.each(cnpjs, function (cnpj, value){
                 value = Math.round(value);
-
-                if(exist[cnpj])
-                {
+                if(exist[cnpj]){
                     data.addRow([null, cnpj, value]);
-                    test.push([null, cnpj, value])
-
-
-                }
-                else
-                {
+                }else{
                     exist[cnpj] =true
                     data.addRow([cnpj, councilman, value]);
-                    test.push([cnpj, councilman, value])
-
                 }
             });
-
         });
     });
-    data = google.visualization.arrayToDataTable(test);
-    tree = new google.visualization.TreeMap(document.getElementById('polarChart'));
+
+    tree = new google.visualization.TreeMap(document.getElementById('treemapChart'));
     var options = {
         highlightOnMouseOver: true,
         maxDepth: 1,
@@ -116,6 +134,7 @@ function createPolarChart(total_debits) {
 function showStaticTooltip(row, value, size) {
 return '<div style="background:#fd9; padding:10px; border-style:solid"> R$ '+ value +'</div>';
 }
+
 function get_rgb_randon() {
      var a = [
                 'rgba(255, 99, 132, 0.2)',
