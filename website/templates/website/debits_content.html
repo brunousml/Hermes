@@ -16,10 +16,10 @@
                                 <div class="header-icon">
                                     <i class="pe page-header-icon pe-7s-shield"></i>
                                 </div>
-                                <div class="header-title">
+                                <div>
                                     <h3 class="m-b-xs">Extrato Público</h3>
                                     <small>
-                                        Analise, investigue, confira os gastos de seu representante politíco.
+                                        Coleção de Débitos de vereadores da Câmara Munícipal de São Paulo.
                                     </small>
                                 </div>
                             </div>
@@ -28,6 +28,24 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h2 class="m-b-none" style="text-align:center;">
+                                        Monitore os gastos dos Vereadores de São Paulo
+                                    </h2><br />
+                                    <p style="text-align:center;">
+                                        Cada vereador dispõe também dispõe de uma verba auxílio escritório de até
+                                        R$ 282.037,56 por ano, além dos proventos salariais e da verba para até 17
+                                        assistentes. Esta verba é destinada ao custeio de serviços
+                                        gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e
+                                        materiais de escritório, entre outras despesas.
+                                    </p>
+
+                                    <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="/about">Saiba mais sobre as verbas de cada vereador</a></span> </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-lg-4 col-xs-12">
                             <div class="panel panel-filled">
@@ -36,8 +54,8 @@
                                     <h2 class="m-b-none">
                                         R$ 15.512.065,80
                                     </h2>
-                                    <div class="small">Valor Total dos 55 Gabinetes</div>
-                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span>  </div>
+                                    <div class="small">Verba Total disponível para os 55 Gabinetes anualmente</div>
+                                    <div class="slight m-t-sm">Ano Base: <span class="c-white">2017</span>  </div>
                                 </div>
                             </div>
                         </div>
@@ -48,8 +66,8 @@
                                     <h2 class="m-b-none">
                                         R$ 282.037,56
                                     </h2>
-                                    <div class="small">Valor Individual por Vereador</div>
-                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span>  </div>
+                                    <div class="small">Verba total anual para cada Vereador no estado de São Paulo.</div>
+                                    <div class="slight m-t-sm">Ano Base: <span class="c-white">2017</span>  </div>
                                 </div>
                             </div>
                         </div>
@@ -59,25 +77,14 @@
                                     <h2 class="m-b-none">
                                         R$ 23.503,13
                                     </h2>
-                                    <div class="small">Media Mensal Individual</div>
-                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span> </div>
+                                    <div class="small">Verba mensal por gabinete.</div>
+                                    <div class="slight m-t-sm">Ano Base: <span class="c-white">2017</span> </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="col-lg-12 col-xs-12">
-                            <div class="panel panel-filled">
-                                <div class="panel-body">
-                                    <h2 class="m-b-none" style="text-align:center;">
-                                        Como cada Vereador pode gastar esse dinheiro ?
-                                    </h2><br />
-                                    <p style="text-align:center;">Cada vereador dispõe, além dos proventos salariais pagos diretamente a ele, também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas.</p>
 
-                                    <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <div class="row">
@@ -89,8 +96,7 @@
                                         <div class="panel-body">
                                             <div class="panel-body">
                                                 <h3>Valores acumulados por Vereador do munícipio de São Paulo</h3>
-                                                <p>Neste primeiro gráfico exibimos os gastos individualizados por vereador. </p>
-{#                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>#}
+                                                <p>Neste gráfico você vê os gastos de todos os vereadores. Posicionando o ponteiro em cima do nome do vereador o gasto total irá aparecer.</p>
                                             </div>
                                             <canvas id="barChart" class="col-xs-12 col-lg-12" style="height: 500px"></canvas>
                                         </div>
@@ -108,17 +114,11 @@
 
                                             <div class="col-md-6 col-xs-12" style="text-align: left; padding-left: 20px;">
                                                 <h3 >Objetos de Custo</h3>
-                                                <p>Aqui exibimos os acumulados referentes aos principais objetos de custo e as empresas que receberam a verba.</p>
-{#                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>#}
-{#                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>#}
+                                                <p>Acumulados referentes aos principais objetos de custo.</p>
                                             </div>
                                             <div class="col-md-6 col-xs-12" style="text-align: right; padding-left: 20px;">
-                                                <h3 >Acumulados por empresa (CNPJ)</h3>
+                                                <h3 >Empresas (CNPJ)</h3>
                                                 <p>Aqui você pode analisar os acumulados por empresa.</p>
-{#
-
-{#                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>#}
-{#                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>#}
                                             </div>
                                         </div>
                                     </div>
@@ -155,9 +155,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-
                     </div>
-
                 </div>
                 </div>
                 </div>
