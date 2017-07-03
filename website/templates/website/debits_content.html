@@ -1,0 +1,164 @@
+{% extends "website/base.html" %}
+
+{% block title_page %} Extrato Público - Débitos de Vereadores {% endblock %}
+{% block title_header %}Débitos de Vereadores do múnicípio de São Paulo{% endblock %}
+{% block subtitle_header %}Estes valores são relativos aos reembolsos efetivados aos vereadores do munícipio de São Paulo.{% endblock %}
+
+{% block content %}
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="view-header">
+                                <div class="pull-right text-right" style="line-height: 14px">
+                                    <small>Dados Públicos<br>Use Nossa<br> <span class="c-white"><a href="/api/v1/">API</a></span></small>
+                                </div>
+                                <div class="header-icon">
+                                    <i class="pe page-header-icon pe-7s-shield"></i>
+                                </div>
+                                <div class="header-title">
+                                    <h3 class="m-b-xs">Extrato Público</h3>
+                                    <small>
+                                        Analise, investigue, confira os gastos de seu representante politíco.
+                                    </small>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="panel panel-filled">
+
+                                <div class="panel-body">
+                                    <h2 class="m-b-none">
+                                        R$ 15.512.065,80
+                                    </h2>
+                                    <div class="small">Valor Total dos 55 Gabinetes</div>
+                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span>  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="panel panel-filled">
+
+                                <div class="panel-body">
+                                    <h2 class="m-b-none">
+                                        R$ 282.037,56
+                                    </h2>
+                                    <div class="small">Valor Individual por Vereador</div>
+                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span>  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h2 class="m-b-none">
+                                        R$ 23.503,13
+                                    </h2>
+                                    <div class="small">Media Mensal Individual</div>
+                                    <div class="slight m-t-sm"><i class="fa fa-clock-o"> </i> Ano Base: <span class="c-white">2017</span> </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-xs-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h2 class="m-b-none" style="text-align:center;">
+                                        Como cada Vereador pode gastar esse dinheiro ?
+                                    </h2><br />
+                                    <p style="text-align:center;">Cada vereador dispõe, além dos proventos salariais pagos diretamente a ele, também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas.</p>
+
+                                    <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="panel panel-filled">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-body">
+                                            <div class="panel-body">
+                                                <h3>Valores acumulados por Vereador do munícipio de São Paulo</h3>
+                                                <p>Neste primeiro gráfico exibimos os gastos individualizados por vereador. </p>
+{#                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>#}
+                                            </div>
+                                            <canvas id="barChart" class="col-xs-12 col-lg-12" style="height: 500px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="panel panel-filled text-center">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div id="treemapChart" style="height: 500px;" class="col-md-6 col-xs-11"></div>
+                                            <div style="min-width:50%; min-height: 500px" class="col-md-6 col-xs-11">
+                                                <canvas id="horizontalBarChart" style="width: 100%;" height="500" >
+                                                </canvas>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-12" style="text-align: left; padding-left: 20px;">
+                                                <h3 >Objetos de Custo</h3>
+                                                <p>Aqui exibimos os acumulados referentes aos principais objetos de custo e as empresas que receberam a verba.</p>
+{#                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>#}
+{#                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>#}
+                                            </div>
+                                            <div class="col-md-6 col-xs-12" style="text-align: right; padding-left: 20px;">
+                                                <h3 >Acumulados por empresa (CNPJ)</h3>
+                                                <p>Aqui você pode analisar os acumulados por empresa.</p>
+{#
+
+{#                                                <p style="text-align:center;">Cada vereador dispõe também de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas</p>#}
+{#                                                <div class="slight m-t-sm" style="text-align:right"> <span class="c-white"><a href="about.html">Saiba mais sobre as verbas de cada vereador</a></span> </div>#}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Departamento</th>
+                                                <th>Centro de Custo</th>
+                                                <th>Código</th>
+                                                <th>Fornecedor</th>
+                                                <th>CNPJ</th>
+                                                <th>Ano</th>
+                                                <th>Mês</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+
+                </div>
+                </div>
+                </div>
+{% endblock %}

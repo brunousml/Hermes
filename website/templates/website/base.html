@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title_page %}{% endblock %}</title>
+
+    {#    Metatags  #}
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    {% load staticfiles %}
+
+    {#    Stylesheets   #}
+    <link rel="stylesheet" href="{% static "website/css/bootstrap.css" %}"  />
+    <link rel="stylesheet" href="{% static "website/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "website/css/datatable.css" %}">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.foundation.min.css" type="text/css">
+</head>
+<body>
+
+    <body class="pace-done">
+        <div class="pace  pace-inactive">
+            <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+                <div class="pace-progress-inner"></div>
+            </div>
+            <div class="pace-activity"></div>
+        </div>
+
+        <!-- Wrapper-->
+        <div class="wrapper">
+
+            <!-- Header-->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div id="mobile-menu">
+                            <div class="left-nav-toggle">
+                                <a href="#">
+                                    <i class="stroke-hamburgermenu"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <a class="navbar-brand" href="index.html">
+                            LOGO IMG
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <div class="left-nav-toggle">
+                            <a href="">
+                                <i class="stroke-hamburgermenu">Esconder Menu</i>
+                            </a>
+                        </div>
+                     </div>
+                </div>
+            </nav>
+            <!-- End header-->
+            <!-- Navigation-->
+            <aside class="navigation">
+                <nav>
+                    <ul class="nav luna-nav">
+                        <li class="nav-category">
+                            Menu
+                        </li>
+                        <li class="active">
+                            <a href="/">Painel de Gastos</a>
+                        </li>
+
+
+                        <li>
+                            <a href="/about">
+                                Conheça o Projeto
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/contact">
+                                Entre em contato Conosco
+                            </a>
+                        </li>
+                        <li class="nav-info">
+                            <i class="pe pe-7s-shield text-accent"></i>
+
+                            <div class="m-t-xs">
+                                <span class="c-white">Extrato Público</span> é uma interface para análise de gastos públicos.
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <!-- End navigation-->
+
+            <!-- Main content-->
+            <section class="content" >{% block content %}{% endblock %}</section>
+        </div><!-- End wrapper-->
+    
+
+
+
+    {#    Javascript    #}
+    <script type="text/javascript" src="{% static "website/js/jquery/jquery-1.9.1.min.js" %}"></script>
+
+    {#    Google-charts#}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{% static "website/js/google-charts/charts.google.js" %}"></script>
+
+    {#chart.js#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+</body>
+</html>
