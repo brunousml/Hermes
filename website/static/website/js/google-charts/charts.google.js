@@ -22,7 +22,6 @@ function createDataTable(objects) {
     });
 
     table.DataTable();
-    $('.dataTables_filter input').addClass( "input_mask" );
 }
 
 function addRow(debit) {

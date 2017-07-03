@@ -18,6 +18,9 @@ class City(models.Model):
         managed = False
         db_table = 'city'
 
+    def __str__(self):
+        return self.name
+
 
 class Councilman(models.Model):
     name = models.CharField(unique=True, max_length=200)
@@ -27,6 +30,9 @@ class Councilman(models.Model):
     class Meta:
         managed = False
         db_table = 'councilman'
+
+    def __str__(self):
+        return self.name
 
 
 class CouncilmanDebits(models.Model):
@@ -47,6 +53,9 @@ class CouncilmanDebits(models.Model):
         managed = False
         db_table = 'councilman_debits'
 
+    def __str__(self):
+        return self.cost_object
+
 
 class Country(models.Model):
     name = models.CharField(unique=True, max_length=200)
@@ -55,6 +64,9 @@ class Country(models.Model):
     class Meta:
         managed = False
         db_table = 'country'
+
+    def __str__(self):
+        return self.name
 
 
 class State(models.Model):
@@ -65,3 +77,7 @@ class State(models.Model):
     class Meta:
         managed = False
         db_table = 'state'
+
+
+    def __str__(self):
+        return self.name
