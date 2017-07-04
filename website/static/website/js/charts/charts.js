@@ -21,6 +21,15 @@ function createDataTable(objects) {
         table.append(addRow(v));
     });
 
+    var extensions = {
+        "sFilter": "dataTables_filter col-xs-12",
+        "sLength": "dataTables_length col-xs-12"
+    }
+    // Used when bJQueryUI is false
+    $.extend($.fn.dataTableExt.oStdClasses, extensions);
+    // Used when bJQueryUI is true
+    $.extend($.fn.dataTableExt.oJUIClasses, extensions);
+
     table.DataTable();
 }
 

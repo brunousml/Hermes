@@ -2852,3 +2852,15 @@ fieldset[disabled] .form-control {
 .margin-top{
     padding:50px;
 }
+
+
+
+.chart-text{
+  padding-left: 20px;
+  width: 100%
+}
+
+#treemapChart{
+  width: 100%;
+  height: 500px;
+}
