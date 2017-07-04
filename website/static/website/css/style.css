@@ -2864,3 +2864,7 @@ fieldset[disabled] .form-control {
   width: 100%;
   height: 500px;
 }
+.navbar-fixed-left{
+      position: fixed;
+      width: inherit;
+}
