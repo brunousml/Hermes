@@ -6,12 +6,56 @@ google.charts.setOnLoadCallback(drawCharts);
 
 // Get JSON Data and Create Charts
 function drawCharts() {
+    // Get total used in this year
+    $.getJSON('get_dashboard_values', function (result) {
+        createSpiderChart(result['registers']);
+        var total_per = (Math.floor(result.total_used.value__sum)/15512066)*100;
+
+        var gauge1 = loadLiquidFillGauge("circle-1", Math.floor(total_per));
+        var gauge1 = loadLiquidFillGauge("circle-2", 55);
+    });
+    // Get raw debits
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
         createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
         createTreeMapChart(sumDebitsByCostObject(result['objects']));
         createBarChart(sumDebitsByCouncilman(result['objects']));
         createDataTable(result['objects']);
     });
+}
+
+function createSpiderChart(registers) {
+    var data = [];
+    var labels = [];
+    var backgroundcolor = [];
+    var bordercolor = [];
+
+    $.each(registers, function (key, val) {
+            data.push(val);
+            labels.push(key + "/2017");
+            backgroundcolor.push(get_rgb_randon())
+            bordercolor.push(get_rgb_randon_border())
+    });
+
+
+    var ctx = document.getElementById("line-chart");
+    var myRadarChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'R$ ',
+                    data: data,
+                    backgroundColor: backgroundcolor,
+                    borderColor: bordercolor,
+                    borderWidth: 1,
+
+                }],
+
+            },
+            options: {
+
+            }
+        });
 }
 
 function createDataTable(objects) {
