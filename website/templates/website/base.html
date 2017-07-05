@@ -105,23 +105,24 @@
 
     {#    Javascript    #}
     <script type="text/javascript" src="{% static "website/js/jquery/jquery-1.9.1.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "website/js/menu.js" %}"></script>
+    <script type="text/javascript" async src="{% static "website/js/menu.js" %}"></script>
 
     {#    Google-charts#}
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{% static "website/js/google-chart/jsapi.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/google-chart/loader.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/datatable/datatable.min.js" %}"></script>
 
 
     {#chart.js#}
-    <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static "website/js/d3/d3.v3.min.js" %}"></script>
+    <script type="text/javascript" language="JavaScript" src="{% static "website/js/chartJS/chart.bundle.min.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "website/js/charts/charts.js" %}"></script>
+
     <script type="text/javascript" src="{% static "website/js/circles.min.js" %}"></script>
     <script type="text/javascript" src="{% static "website/js/liquidFillGauge.js" %}"></script>
+    <script type="text/javascript" async src="{% static "website/js/charts/charts.js" %}"></script>
 
-    <style>
+        <style>
         .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
     </style>
 </body>
