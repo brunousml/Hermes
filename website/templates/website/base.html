@@ -12,8 +12,6 @@
     {% load staticfiles %}
 
     {#    Stylesheets   #}
-
-
     <link rel="stylesheet" href="{% static "website/css/bootstrap.css" %}"  />
     <link rel="stylesheet" href="{% static "website/css/animate.css" %}"  />
     <link rel="stylesheet" href="{% static "website/css/font-awesome.css" %}"  />
@@ -65,30 +63,35 @@
             <aside class="navigation">
                 <nav class="navbar-fixed-left">
                     <ul class="nav luna-nav">
-                        <li class="nav-category">
-                            Menu
+                        <li {% if request.resolver_match.url_name == "index" %}class="active"{% endif %} >
+                            <a href="/">Dashboard</a>
                         </li>
-                        <li class="active">
-                            <a href="/">Painel de Gastos</a>
+
+
+                        <li {% if request.resolver_match.url_name == "about" %}class="active"{% endif %}>
+                            <a href="/about"  >
+                                Sobre
+                            </a>
+                        </li>
+
+                        <li {% if request.resolver_match.url_name == "contact" %}class="active"{% endif %}>
+                            <a href="/contact"  >
+                                Contato
+                            </a>
                         </li>
 
 
                         <li>
-                            <a href="/about">
-                                Conheça o Projeto
+                            <a href="/api/v1/"  >
+                                API
                             </a>
                         </li>
 
-                        <li>
-                            <a href="/contact">
-                                Entre em contato Conosco
-                            </a>
-                        </li>
                         <li class="nav-info">
                             <i class="pe pe-7s-shield text-accent"></i>
 
                             <div class="m-t-xs">
-                                <span class="c-white">Extrato Público</span> Monitore os vereadores de seu munícipio.
+                                <span class="c-white">Extrato Público</span> Monitore os gastos do seu munícipio.
                             </div>
                         </li>
                     </ul>

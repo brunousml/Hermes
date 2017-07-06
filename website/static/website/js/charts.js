@@ -9,10 +9,11 @@ function drawCharts() {
     // Get total used in this year
     $.getJSON('get_dashboard_values', function (result) {
         createSpiderChart(result['registers']);
-        var total_per = (Math.floor(result.total_used.value__sum)/15512066)*100;
+        var year_per = (Math.floor(result.total_used.year.value__sum)/15512066)*100;
+        var month_per = (Math.floor(result.total_used.month.value__sum)/1292672)*100;
 
-        var gauge1 = loadLiquidFillGauge("circle-1", Math.floor(total_per));
-        var gauge1 = loadLiquidFillGauge("circle-2", 55);
+        var gauge1 = loadLiquidFillGauge("circle-1", year_per);
+        var gauge1 = loadLiquidFillGauge("circle-2", month_per);
     });
     // Get raw debits
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {

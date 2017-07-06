@@ -1,4 +1,4 @@
-import json
+import datetime
 
 from django.db.models import Count, Sum
 from django.shortcuts import render
@@ -20,15 +20,26 @@ def contact(request):
 
 
 def get_dashboard_values(request):
+    # Setup
+    month = int(datetime.datetime.now().strftime("%m").replace("0", "")) - 1
     councilmans = CouncilmanDebits.objects.all()
+
+    # Queries
     registers = councilmans.values('month').annotate(dcount=Count('month'))
-    total_used = CouncilmanDebits.objects.aggregate(Sum('value'))
+    total_year_used = CouncilmanDebits.objects.aggregate(Sum('value'))
+    total_month_used = CouncilmanDebits.objects.filter(month=month).aggregate(Sum('value'))
+
+    # Organize data
     register_by_month ={}
     for el in registers:
         register_by_month[int(el['month'])] = el['dcount']
 
+    # Format and return
     data = {
-        'total_used': total_used,
+        'total_used': {
+            'year': total_year_used,
+            'month': total_month_used
+        },
         'registers': register_by_month,
     }
     return JsonResponse(data)
