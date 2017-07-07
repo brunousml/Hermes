@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1xq$ek*ay1d3+jl@k2!*y58)+&(2xn-f^m)l(!+&qidy4(go_!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://extratopublico.com.br/', 'localhost:8000']
 
 
 # Application definition

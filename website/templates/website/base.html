@@ -6,16 +6,20 @@
     {#    Metatags  #}
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
     {% load staticfiles %}
 
     {#    Stylesheets   #}
     <link rel="stylesheet" href="{% static "website/css/bootstrap.css" %}"  />
+    <link rel="stylesheet" href="{% static "website/css/animate.css" %}"  />
+    <link rel="stylesheet" href="{% static "website/css/font-awesome.css" %}"  />
+    <link rel="stylesheet" href="{% static "website/css/stroke-icons.css" %}"  />
     <link rel="stylesheet" href="{% static "website/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "website/css/datatable.css" %}">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" type="text/css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.foundation.min.css" type="text/css">
 </head>
 <body>
 
@@ -37,18 +41,18 @@
                         <div id="mobile-menu">
                             <div class="left-nav-toggle">
                                 <a href="#">
-                                    <i class="stroke-hamburgermenu"></i>
+                                    <i class="glyphicon glyphicon-th"></i>
                                 </a>
                             </div>
                         </div>
-                        <a class="navbar-brand" href="index.html">
-                            LOGO IMG
+                        <a class="navbar-brand" href="/">
+
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <div class="left-nav-toggle">
                             <a href="">
-                                <i class="stroke-hamburgermenu">Esconder Menu</i>
+                                <i class="glyphicon glyphicon-th"></i>
                             </a>
                         </div>
                      </div>
@@ -57,33 +61,37 @@
             <!-- End header-->
             <!-- Navigation-->
             <aside class="navigation">
-                <nav>
+                <nav class="navbar-fixed-left">
                     <ul class="nav luna-nav">
-                        <li class="nav-category">
-                            Menu
-                        </li>
-                        <li class="active">
-                            <a href="index.html">Painel de Gastos</a>
+                        <li {% if request.resolver_match.url_name == "index" %}class="active"{% endif %} >
+                            <a href="/">Dashboard</a>
                         </li>
 
 
-                        <li>
-                            <a href="#">
-                                Conheça o Projeto
+                        <li {% if request.resolver_match.url_name == "about" %}class="active"{% endif %}>
+                            <a href="/about"  >
+                                Sobre
                             </a>
                         </li>
 
                         <li>
-                            <a href="versions.html">
-                                Entre em contato Conosco
+                            <a href="/api/v1/"  >
+                                API
                             </a>
                         </li>
+
                         <li class="nav-info">
-                            <i class="pe pe-7s-shield text-accent"></i>
 
                             <div class="m-t-xs">
-                                <span class="c-white">Extrato Público</span> é uma interface de demonstração dos gastos públicos.
+                                <span class="c-white">Extrato Público</span> Monitore os gastos do seu munícipio.
                             </div>
+                            <div class="m-t-xs">
+                                <span class="c-white">Contato: </span> extrapublico@gmail.com
+                            </div>
+                            <div class="m-t-xs">
+                                <span class="c-white"><a href="https://www.facebook.com/extratopublico/" target="_blank">Facebook </a></span>
+                            </div>
+
                         </li>
                     </ul>
                 </nav>
@@ -101,12 +109,22 @@
     <script type="text/javascript" src="{% static "website/js/jquery/jquery-1.9.1.min.js" %}"></script>
 
     {#    Google-charts#}
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="{% static "website/js/google-charts/charts.google.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/google-chart/jsapi.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/google-chart/loader.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/datatable/datatable.min.js" %}"></script>
+
 
     {#chart.js#}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="{% static "website/js/d3/d3.v3.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/d3/liquidFillGauge.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/chartJS/chart.bundle.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "website/js/circles.min.js" %}"></script>
+
+
+    <script type="text/javascript" src="{% static "website/js/charts.js" %}" async  ></script>
+    <script type="text/javascript" src="{% static "website/js/menu.js" %}" async ></script>
+
+
+    <style>.liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }</style>
 </body>
 </html>

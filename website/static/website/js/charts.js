@@ -6,6 +6,16 @@ google.charts.setOnLoadCallback(drawCharts);
 
 // Get JSON Data and Create Charts
 function drawCharts() {
+    // Get total used in this year
+    $.getJSON('get_dashboard_values', function (result) {
+        createSpiderChart(result['registers']);
+        var year_per = (Math.floor(result.total_used.year.value__sum)/15512066)*100;
+        var month_per = (Math.floor(result.total_used.month.value__sum)/1292672)*100;
+
+        var gauge1 = loadLiquidFillGauge("circle-1", year_per);
+        var gauge1 = loadLiquidFillGauge("circle-2", month_per);
+    });
+    // Get raw debits
     $.getJSON('api/v1/CouncilmanDebits/?format=json&limit=99999999', function (result) {
         createHorizontalBarChart(sumDebitsByCNPJ(result['objects']));
         createTreeMapChart(sumDebitsByCostObject(result['objects']));
@@ -14,12 +24,56 @@ function drawCharts() {
     });
 }
 
+function createSpiderChart(registers) {
+    var data = [];
+    var labels = [];
+    var backgroundcolor = [];
+    var bordercolor = [];
+
+    $.each(registers, function (key, val) {
+            data.push(val);
+            labels.push(key + "/2017");
+            backgroundcolor.push(get_rgb_randon())
+            bordercolor.push(get_rgb_randon_border())
+    });
+
+
+    var ctx = document.getElementById("line-chart");
+    var myRadarChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'R$ ',
+                    data: data,
+                    backgroundColor: backgroundcolor,
+                    borderColor: bordercolor,
+                    borderWidth: 1,
+
+                }],
+
+            },
+            options: {
+
+            }
+        });
+}
+
 function createDataTable(objects) {
     var table = $('#datatable');
 
     $.each(objects, function (k, v) {
         table.append(addRow(v));
     });
+
+    var extensions = {
+        "sFilter": "dataTables_filter col-xs-12",
+        "sLength": "dataTables_length col-xs-12"
+    }
+    // Used when bJQueryUI is false
+    $.extend($.fn.dataTableExt.oStdClasses, extensions);
+    // Used when bJQueryUI is true
+    $.extend($.fn.dataTableExt.oJUIClasses, extensions);
 
     table.DataTable();
 }

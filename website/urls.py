@@ -8,5 +8,6 @@ app_name = 'website'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^about$', views.about, name='about'),
+    url(r'^get_dashboard_values$', views.get_dashboard_values, name='get_dashboard_values'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# urlpatterns + + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

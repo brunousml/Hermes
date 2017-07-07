@@ -2848,3 +2848,23 @@ fieldset[disabled] .form-control {
   color: #ffffff !important;
   padding: 6px 12px !important;
 }
+
+.margin-top{
+    padding:50px;
+}
+
+
+
+.chart-text{
+  padding-left: 20px;
+  width: 100%
+}
+
+#treemapChart{
+  width: 100%;
+  height: 500px;
+}
+.navbar-fixed-left{
+      position: fixed;
+      width: inherit;
+}
