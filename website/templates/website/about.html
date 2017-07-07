@@ -1,34 +1,57 @@
 
 {% extends "website/base.html" %}
 
-{% block title_page %} Extrato Público - Débitos de Vereadores {% endblock %}
+{% block title_page %} Extrato Público - Sobre {% endblock %}
 {% block title_header %}Débitos de Vereadores do múnicípio de São Paulo{% endblock %}
 {% block subtitle_header %}Estes valores são relativos aos reembolsos efetivados aos vereadores do munícipio de São Paulo.{% endblock %}
 
 {% block content %}
-
+            <style>
+            p, h2{
+                padding:10px;
+            }
+            </style>
             <div class="container-fluid margin-top">
                 <div class="row center-block">
                     <div class="panel panel-filled text-center">
-                        <h1 class="h1">Extrato Público</h1>
+                        <h1 class="h1">Sobre o projeto Extrato Público</h1>
                     </div>
-                    <div class="panel panel-filled ">
-                        <p> Este Projeto nasceu em um evento competitivo que buscava desenvolvedores para criar aplicações para inibir a corrupção.</p>
-                        <p>O tema é muito abrangente e foram criados diversos aplicativos cada um com um objetivo diferente, mas todos em prol de um bem maior para a população.</p>
-                        <p>Em meio a muitas discussões do que iriamos desenvolver, resolvemos trabalhar em cima dos gastos já disponíveis dos vereadores de São Paulo, porém a forma que a Câmara disponibiliza estes dados e quase impossível de ler e tirar qualquer dúvida sobre eles.</p>
-                        <p>Veja nesses dois exemplos abaixo como é quase que impossível extrair alguma informação útil sem perder algumas horas de análise:</p>
-                        <div class="margin-top row">
-                            {% load static %}
-                            <img src="{% static "website/image/img_dados.png" %}" class="col-md-6 col-xs-12" />
-                            <img src="{% static "website/image/img_dados2.png" %}" class="col-md-6 col-xs-12" />
-                        </div>
+                    <div class="panel panel-filled " style="padding: 20px">
+                        <p class="lead">
+                            O projeto nasceu nasceu no evento HackInSampa a partir da iniciativa de pessoas motivadas a
+                            ampliar a transparência de dados públicos. Ele visa facilitar o acesso e o monitoramento dos
+                            gastos públicos através de gráficos análises e informação a respeito da máquina pública.
+                        </p>
 
-                        <p>Como podemos ver nas imagens acima a administração dos gastos com essa visualização é bem difícil, esses dados se encontram no site da Câmara, neste link <a href="https://app-sisgvconsulta-prd.azurewebsites.net/ws/ws2.asmx">Fonte de dados Câmara de São Paulo(Débito/ Crédito)</a></p>
-                        <p>Percebemos essa dificuldade e resolvemos criar o Extrato Publico, tudo isso que mostramos nas fotos nós fizemos a importação para um servidor e ordenamos esses dados de forma que qualquer pessoa possa entender estes gastos.</p>
-                        <p>Mas o que é esse dinheiro ?</p>
-                        <p>Esse dinheiro é a verba anual que cada Vereador tem para gastar durante o ano, não é cumulativo para outro ano. Funciona da seguinte forma cada vereador dispõe de uma verba anual de até R$ 282.037,56 (média mensal de R$ 23.503,13) destinado ao custeio de serviços gráficos, correios, assinaturas de jornais, deslocamentos por toda a cidade e materiais de escritório, entre outras despesas.</p>
-                        <p>Nestes dados nós conseguimos expor o valor das notas e cnpjs que forneceram o serviço, tudo graficamente.</p>
-                        <p>Agora cabe a você cidadão analisar e acompanhar os gastos de seu Vereador.</p>
+                        <h1>Verba Auxílio-Encargos Gerais de Gabinete</h1>
+                        <p class="lead">
+                            Os registros catalogados aqui fazem parte da verba de Auxílio-Encargos gerais de gabinete
+                            dos vereadores, com exceção dos registros relativos às lideranças.
+
+                            Estes gastos devem seguir o limite disponível para o gabinete de R$ 23.503,13 mensais,
+                            somando um valor anual de R$ 15.512.065,80 disponíveis para os 55 gabinetes.
+                        </p>
+
+                        <p class="lead">
+                            <a
+                                href="https://app-sisgvconsulta-prd.azurewebsites.net/ws/ws2.asmx?op=ObterDebitoVereadorJSON"
+                                target="_blank">
+                                    Veja os registros originais disponíveis no site da câmara
+                            </a>
+                        </p>
+
+                        <h2>Os vereadores dispõe de outras verbas?</h2>
+                        <p class="lead">
+                            Sim, além da verba  Auxílio-Encargos Gerais de Gabinete, justamente a que paga os R$ 23.503,13/Mês,
+                            existe também outra verba para a mão de obra de até 17 assistentes parlamentares e um chefe de gabinete.
+                            Em 2017, o montante dessa verba é de R$ 164.433,21 por mês e por vereador.
+                            Mas estes dados referentes aos 17 assistentes não estão  disponíveis em formato aberto. Apenas
+                            com informação em pdf disponibilizado no
+                            <a target="_blank" href="http://www.camara.sp.gov.br/transparencia/salarios-abertos/">site da câmara</a>.
+                        </p>
+
+                        <h3>Agora cabe a nós monitorarmos, analisarmos e acompanharmos os gastos dos vereadores.</h3>
+                        <a href="/">Voltar para o Dashboard de gastos</a>
 
                     </div>
                     </div>
