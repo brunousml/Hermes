@@ -74,13 +74,6 @@
                             </a>
                         </li>
 
-                        <li {% if request.resolver_match.url_name == "contact" %}class="active"{% endif %}>
-                            <a href="/contact"  >
-                                Contato
-                            </a>
-                        </li>
-
-
                         <li>
                             <a href="/api/v1/"  >
                                 API
@@ -88,11 +81,17 @@
                         </li>
 
                         <li class="nav-info">
-                            <i class="pe pe-7s-shield text-accent"></i>
 
                             <div class="m-t-xs">
                                 <span class="c-white">Extrato Público</span> Monitore os gastos do seu munícipio.
                             </div>
+                            <div class="m-t-xs">
+                                <span class="c-white">Contato: </span> extrapublico@gmail.com
+                            </div>
+                            <div class="m-t-xs">
+                                <span class="c-white"><a href="https://www.facebook.com/extratopublico/" target="_blank">Facebook </a></span>
+                            </div>
+
                         </li>
                     </ul>
                 </nav>

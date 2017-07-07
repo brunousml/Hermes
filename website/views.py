@@ -14,11 +14,6 @@ def index(request):
 def about(request):
     return render(request, 'website/about.html')
 
-
-def contact(request):
-    return render(request, 'website/contact.html')
-
-
 def get_dashboard_values(request):
     # Setup
     month = int(datetime.datetime.now().strftime("%m").replace("0", "")) - 1
